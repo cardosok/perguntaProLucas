@@ -5,8 +5,7 @@ import lombok.Data;
 @Data
 public class Opcao {
 
-    private String texto;
+  private String texto;
 
-    private boolean correto;
-
+  private boolean correto;
 }

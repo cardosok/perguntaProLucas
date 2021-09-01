@@ -7,10 +7,11 @@ import java.util.List;
 @Data
 public class Pergunta {
 
-    private String texto;
+  private String texto;
 
-    private Dificuldade dificuldade;
+  private Dificuldade dificuldade;
 
-    private List<Opcao> opcao;
+  private Categoria categoria;
 
+  private List<Opcao> opcao;
 }
