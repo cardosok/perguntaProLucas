@@ -7,6 +7,10 @@ import lombok.val;
 @Data
 public class App {
 
+  private static final int NUMERO_PERGUNTAS_VENCER = 15;
+
+  private static final int PERGUNTAS_POR_DIFICULDADE = 5;
+
   private Usuario usuario;
 
   private Categoria categoriaSelecionada;
@@ -17,33 +21,34 @@ public class App {
 
   private Pergunta perguntaAtual;
 
+  private Dificuldade dificuldadeAtual;
+
+  private PerguntaService perguntaService;
+
   @Builder
-  public App(Usuario usuario, Categoria categoriaSelecionada) {
+  public App(PerguntaService perguntaService, Usuario usuario, Categoria categoriaSelecionada) {
+    this.perguntaService = perguntaService;
     this.usuario = usuario;
     this.categoriaSelecionada = categoriaSelecionada;
+    this.dificuldadeAtual = Dificuldade.JUNIOR;
     this.pontos = 0;
     this.perguntasRespondidas = 0;
   }
 
   public Pergunta getProximaPergunta() {
-    perguntaAtual =
-        Pergunta.builder()
-            .texto("Pergunta 1")
-            .categoria(categoriaSelecionada)
-            .dificuldade(Dificuldade.JUNIOR)
-            .opcao(Opcao.builder().texto("Resposta 1").correto(false).build())
-            .opcao(Opcao.builder().texto("Resposta 2").correto(false).build())
-            .opcao(Opcao.builder().texto("Resposta 3").correto(true).build())
-            .opcao(Opcao.builder().texto("Resposta 4").correto(false).build())
-            .build();
-    return perguntaAtual;
+    if (this.perguntasRespondidas > 0
+        && this.perguntasRespondidas % PERGUNTAS_POR_DIFICULDADE == 0) {
+      this.dificuldadeAtual = Dificuldade.values()[this.dificuldadeAtual.ordinal() + 1];
+    }
+    this.perguntaAtual = this.perguntaService.proximaPergunta(this.dificuldadeAtual);
+    return this.perguntaAtual;
   }
 
   public boolean isRespostaCorreta(Opcao opcaoSelecionada) {
-    perguntasRespondidas++;
+    this.perguntasRespondidas++;
     val correto = opcaoSelecionada.isCorreto();
     if (correto) {
-      pontos++;
+      pontos += this.perguntaAtual.getDificuldade().getPontos();
     }
     return correto;
   }
