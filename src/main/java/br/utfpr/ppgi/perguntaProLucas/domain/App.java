@@ -25,17 +25,24 @@ public class App {
 
   private PerguntaService perguntaService;
 
+  private SituacaoJogo situacaoJogo = SituacaoJogo.JOGANDO;
+
   @Builder
   public App(PerguntaService perguntaService, Usuario usuario, Categoria categoriaSelecionada) {
     this.perguntaService = perguntaService;
     this.usuario = usuario;
     this.categoriaSelecionada = categoriaSelecionada;
     this.dificuldadeAtual = Dificuldade.JUNIOR;
+    this.situacaoJogo = SituacaoJogo.JOGANDO;
     this.pontos = 0;
     this.perguntasRespondidas = 0;
   }
 
   public Pergunta getProximaPergunta() {
+    if (this.situacaoJogo == SituacaoJogo.PERDEU) {
+      throw new JogoException("Você perdeu");
+    }
+
     if (this.perguntasRespondidas > 0
         && this.perguntasRespondidas % PERGUNTAS_POR_DIFICULDADE == 0) {
       this.dificuldadeAtual = Dificuldade.values()[this.dificuldadeAtual.ordinal() + 1];
@@ -48,7 +55,9 @@ public class App {
     this.perguntasRespondidas++;
     val correto = opcaoSelecionada.isCorreto();
     if (correto) {
-      pontos += this.perguntaAtual.getDificuldade().getPontos();
+      this.pontos += this.perguntaAtual.getDificuldade().getPontos();
+    } else {
+      this.situacaoJogo = SituacaoJogo.PERDEU;
     }
     return correto;
   }
