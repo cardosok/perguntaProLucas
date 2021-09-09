@@ -15,8 +15,6 @@ public class Main {
 
   public static final int LETTER_A_ASCII_CODE = 97;
 
-  public static final int LETTER_D_ASCII_CODE = 100;
-
   public static void main(String[] args) throws IOException {
     BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
     System.out.println("Bem-vindo ao jogo Pergunta pro Lucas");
