@@ -2,6 +2,7 @@ package br.utfpr.ppgi.perguntaprolucas;
 
 import br.utfpr.ppgi.perguntaprolucas.domain.App;
 import br.utfpr.ppgi.perguntaprolucas.domain.Categoria;
+import br.utfpr.ppgi.perguntaprolucas.domain.JogoException;
 import br.utfpr.ppgi.perguntaprolucas.domain.PerguntaServiceMockImpl;
 import br.utfpr.ppgi.perguntaprolucas.domain.Usuario;
 import java.io.BufferedReader;
@@ -9,9 +10,13 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import lombok.val;
 
+@SuppressWarnings("java:S106")
 public class Main {
 
-  @SuppressWarnings("java:S106")
+  public static final int LETTER_A_ASCII_CODE = 97;
+
+  public static final int LETTER_D_ASCII_CODE = 100;
+
   public static void main(String[] args) throws IOException {
     BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
     System.out.println("Bem-vindo ao jogo Pergunta pro Lucas");
@@ -44,8 +49,8 @@ public class Main {
       System.out.println(perguntaAtual);
       System.out.println();
       System.out.println("Qual a sua opção?");
-      val letraResposta = reader.readLine().charAt(0);
-      int numeroResposta = letraResposta - 97;
+
+      val numeroResposta = lerReposta(reader);
       val opcaoSelecionada = perguntaAtual.getOpcoes().get(numeroResposta);
 
       if (app.isRespostaCorreta(opcaoSelecionada)) {
@@ -56,5 +61,28 @@ public class Main {
     }
 
     // reader.close();
+  }
+
+  public static int lerReposta(BufferedReader reader) {
+    while (true) {
+      try {
+        val resposta = reader.readLine();
+
+        if (resposta.equalsIgnoreCase("\\q")) {
+          throw new JogoException("Fim do jogo");
+        }
+
+        val letraResposta = resposta.charAt(0);
+        int numeroResposta = letraResposta - LETTER_A_ASCII_CODE;
+
+        if (numeroResposta < 0 || numeroResposta > 3) {
+          System.out.println("Escolha uma opção entre: a, b, c ou d");
+        } else {
+          return numeroResposta;
+        }
+      } catch (IOException ex) {
+        System.out.printf("Erro ao ler a resposta selecionada: " + ex.getMessage());
+      }
+    }
   }
 }
