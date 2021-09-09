@@ -54,9 +54,9 @@ public class App {
   }
 
   public boolean isRespostaCorreta(Opcao opcaoSelecionada) {
-    this.respostasCorretas++;
     val correto = opcaoSelecionada.isCorreto();
     if (correto) {
+      this.respostasCorretas++;
       this.pontos += this.perguntaAtual.getDificuldade().getPontos();
     } else {
       this.respostasErradas++;
