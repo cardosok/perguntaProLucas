@@ -1,4 +1,4 @@
-package br.utfpr.ppgi.perguntaProLucas;
+package br.utfpr.ppgi.perguntaprolucas;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -1,4 +1,4 @@
-package br.utfpr.ppgi.perguntaProLucas.domain;
+package br.utfpr.ppgi.perguntaprolucas.domain;
 
 public class JogoException extends RuntimeException {
 

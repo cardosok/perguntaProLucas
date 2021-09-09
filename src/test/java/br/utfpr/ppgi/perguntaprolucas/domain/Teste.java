@@ -1,4 +1,4 @@
-package br.utfpr.ppgi.perguntaProLucas.domain;
+package br.utfpr.ppgi.perguntaprolucas.domain;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -61,7 +61,7 @@ class Teste {
     try {
       this.app.getProximaPergunta();
     } catch (JogoException ex) {
-      assertEquals("Você perdeu", ex.getMessage());
+      assertEquals("Você perdeu", ex.getMessage() );
     }
   }
 }

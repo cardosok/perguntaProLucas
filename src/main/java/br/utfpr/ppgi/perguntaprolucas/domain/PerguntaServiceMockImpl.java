@@ -1,4 +1,4 @@
-package br.utfpr.ppgi.perguntaProLucas.domain;
+package br.utfpr.ppgi.perguntaprolucas.domain;
 
 import java.util.ArrayList;
 import java.util.HashMap;

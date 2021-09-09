@@ -1,4 +1,4 @@
-package br.utfpr.ppgi.perguntaProLucas.domain;
+package br.utfpr.ppgi.perguntaprolucas.domain;
 
 import lombok.Builder;
 import lombok.Data;
@@ -17,7 +17,9 @@ public class App {
 
   private Integer pontos;
 
-  private Integer perguntasRespondidas;
+  private Integer respostasCorretas;
+
+  private Integer respostasErradas;
 
   private Pergunta perguntaAtual;
 
@@ -25,7 +27,7 @@ public class App {
 
   private PerguntaService perguntaService;
 
-  private SituacaoJogo situacaoJogo = SituacaoJogo.JOGANDO;
+  private SituacaoJogo situacaoJogo;
 
   @Builder
   public App(PerguntaService perguntaService, Usuario usuario, Categoria categoriaSelecionada) {
@@ -35,16 +37,16 @@ public class App {
     this.dificuldadeAtual = Dificuldade.JUNIOR;
     this.situacaoJogo = SituacaoJogo.JOGANDO;
     this.pontos = 0;
-    this.perguntasRespondidas = 0;
+    this.respostasCorretas = 0;
+    this.respostasErradas = 0;
   }
 
   public Pergunta getProximaPergunta() {
-    if (this.situacaoJogo == SituacaoJogo.PERDEU) {
+    if (this.respostasErradas == 3) {
       throw new JogoException("Você perdeu");
     }
 
-    if (this.perguntasRespondidas > 0
-        && this.perguntasRespondidas % PERGUNTAS_POR_DIFICULDADE == 0) {
+    if (this.respostasCorretas > 0 && this.respostasCorretas % PERGUNTAS_POR_DIFICULDADE == 0) {
       this.dificuldadeAtual = Dificuldade.values()[this.dificuldadeAtual.ordinal() + 1];
     }
     this.perguntaAtual = this.perguntaService.proximaPergunta(this.dificuldadeAtual);
@@ -52,12 +54,12 @@ public class App {
   }
 
   public boolean isRespostaCorreta(Opcao opcaoSelecionada) {
-    this.perguntasRespondidas++;
+    this.respostasCorretas++;
     val correto = opcaoSelecionada.isCorreto();
     if (correto) {
       this.pontos += this.perguntaAtual.getDificuldade().getPontos();
     } else {
-      this.situacaoJogo = SituacaoJogo.PERDEU;
+      this.respostasErradas++;
     }
     return correto;
   }

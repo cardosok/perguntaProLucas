@@ -1,4 +1,4 @@
-package br.utfpr.ppgi.perguntaProLucas.domain;
+package br.utfpr.ppgi.perguntaprolucas.domain;
 
 import java.util.List;
 import lombok.Builder;
@@ -24,9 +24,9 @@ public class Pergunta {
     val output = new StringBuilder("Nível: " + this.dificuldade + "\n");
     output.append(this.texto).append('\n');
     char letter = 'a';
-    this.opcoes.forEach(
-        opc ->
-            output.append("\t").append(letter).append(") - ").append(opc.getTexto()).append('\n'));
+    for (Opcao opc : this.opcoes) {
+      output.append("\t").append(letter++).append(") - ").append(opc.getTexto()).append('\n');
+    }
     return output.toString();
   }
 }
