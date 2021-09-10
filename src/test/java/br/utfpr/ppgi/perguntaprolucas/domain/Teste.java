@@ -47,21 +47,26 @@ class Teste {
     assertEquals("Engenharia de Software", this.app.getCategoriaSelecionada().getNome());
     assertEquals(0, this.app.getPontos());
 
+    // responde 7 corretas
     for (int i = 0; i < 7; i++) {
       val pergunta = this.app.getProximaPergunta();
       System.out.println(pergunta);
       assertTrue(this.app.isRespostaCorreta(pergunta.getOpcoes().get(0)));
+      assertEquals(i + 1, this.app.getRespostasCorretas());
     }
 
-    val pergunta = this.app.getProximaPergunta();
-    System.out.println(pergunta);
-    assertFalse(this.app.isRespostaCorreta(pergunta.getOpcoes().get(2)));
-    assertEquals(SituacaoJogo.PERDEU, app.getSituacaoJogo());
+    // responde 3 erradas
+    for (int i = 0; i < 3; i++) {
+      val pergunta = this.app.getProximaPergunta();
+      System.out.println(pergunta);
+      assertFalse(this.app.isRespostaCorreta(pergunta.getOpcoes().get(2)));
+      assertEquals(i + 1, this.app.getRespostasErradas());
+    }
 
     try {
       this.app.getProximaPergunta();
     } catch (JogoException ex) {
-      assertEquals("Você perdeu", ex.getMessage() );
+      assertEquals("Você perdeu", ex.getMessage());
     }
   }
 }

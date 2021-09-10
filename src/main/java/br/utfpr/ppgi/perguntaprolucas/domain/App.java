@@ -7,9 +7,9 @@ import lombok.val;
 @Data
 public class App {
 
-  private static final int NUMERO_PERGUNTAS_VENCER = 15;
+  public static final int NUMERO_PERGUNTAS_VENCER = 15;
 
-  private static final int PERGUNTAS_POR_DIFICULDADE = 5;
+  public static final int PERGUNTAS_POR_DIFICULDADE = 5;
 
   private Usuario usuario;
 
@@ -27,15 +27,12 @@ public class App {
 
   private PerguntaService perguntaService;
 
-  private SituacaoJogo situacaoJogo;
-
   @Builder
   public App(PerguntaService perguntaService, Usuario usuario, Categoria categoriaSelecionada) {
     this.perguntaService = perguntaService;
     this.usuario = usuario;
     this.categoriaSelecionada = categoriaSelecionada;
     this.dificuldadeAtual = Dificuldade.JUNIOR;
-    this.situacaoJogo = SituacaoJogo.JOGANDO;
     this.pontos = 0;
     this.respostasCorretas = 0;
     this.respostasErradas = 0;

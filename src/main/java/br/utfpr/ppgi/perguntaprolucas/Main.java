@@ -39,7 +39,7 @@ public class Main {
             + " da categoria: "
             + app.getCategoriaSelecionada().getNome());
 
-    while (true) {
+    while (app.getRespostasCorretas() < App.NUMERO_PERGUNTAS_VENCER) {
       try {
         var perguntaAtual = app.getProximaPergunta();
         cabecalho(app);
@@ -63,6 +63,8 @@ public class Main {
         throw e;
       }
     }
+
+    System.out.println("Você venceu!");
   }
 
   private static void cabecalho(App app) {
