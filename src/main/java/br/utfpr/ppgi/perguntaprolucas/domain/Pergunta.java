@@ -21,7 +21,7 @@ public class Pergunta {
 
   @Override
   public String toString() {
-    val output = new StringBuilder("Nível: " + this.dificuldade + "\n");
+    val output = new StringBuilder();
     output.append(this.texto).append('\n');
     char letter = 'a';
     for (Opcao opc : this.opcoes) {

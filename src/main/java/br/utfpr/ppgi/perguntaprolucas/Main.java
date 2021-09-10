@@ -38,27 +38,37 @@ public class Main {
             + app.getDificuldadeAtual()
             + " da categoria: "
             + app.getCategoriaSelecionada().getNome());
-    System.out.println("Você respondeu " + app.getRespostasCorretas() + " perguntas");
-    System.out.println();
 
     while (true) {
-      var perguntaAtual = app.getProximaPergunta();
-      System.out.println();
-      System.out.println(perguntaAtual);
-      System.out.println();
-      System.out.println("Qual a sua opção?");
+      try {
+        var perguntaAtual = app.getProximaPergunta();
+        cabecalho(app);
+        System.out.println(perguntaAtual);
+        System.out.println();
+        System.out.println("Qual a sua opção?");
+        int numeroResposta = lerReposta(reader);
+        val opcaoSelecionada = perguntaAtual.getOpcoes().get(numeroResposta);
 
-      val numeroResposta = lerReposta(reader);
-      val opcaoSelecionada = perguntaAtual.getOpcoes().get(numeroResposta);
-
-      if (app.isRespostaCorreta(opcaoSelecionada)) {
-        System.out.println("Resposta certa!");
-      } else {
-        System.out.println("Reposta errada!");
+        if (app.isRespostaCorreta(opcaoSelecionada)) {
+          System.out.println("\nResposta certa!");
+        } else {
+          System.out.println("\nReposta errada!");
+        }
+      } catch (JogoException e) {
+        System.out.println("\nSeu nível é: " + app.getDificuldadeAtual());
+        throw e;
       }
     }
+  }
 
-    // reader.close();
+  private static void cabecalho(App app) {
+    System.out.println();
+    System.out.println("Status: ");
+    System.out.println("\tPontos: .............: " + app.getPontos());
+    System.out.println("\tRespostas corretas...: " + app.getRespostasCorretas());
+    System.out.println("\tRespostas erradas....: " + app.getRespostasErradas());
+    System.out.println("\tNível................: " + app.getDificuldadeAtual());
+    System.out.println();
   }
 
   public static int lerReposta(BufferedReader reader) {
