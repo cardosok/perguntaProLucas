@@ -50,9 +50,13 @@ public class Main {
         val opcaoSelecionada = perguntaAtual.getOpcoes().get(numeroResposta);
 
         if (app.isRespostaCorreta(opcaoSelecionada)) {
-          System.out.println("\nResposta certa!");
+          System.out.println("\n************************************************************");
+          System.out.println("\nCERTO!!!");
+          System.out.println("\n************************************************************");
         } else {
-          System.out.println("\nReposta errada!");
+          System.out.println("\n************************************************************");
+          System.out.println("\nFraco hein!?");
+          System.out.println("\n************************************************************");
         }
       } catch (JogoException e) {
         System.out.println("\nSeu nível é: " + app.getDificuldadeAtual());
