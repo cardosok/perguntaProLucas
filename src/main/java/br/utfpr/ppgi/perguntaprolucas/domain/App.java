@@ -11,6 +11,8 @@ public class App {
 
   public static final int PERGUNTAS_POR_DIFICULDADE = 5;
 
+  public static final int MAX_RESPOSTAS_ERRADAS = 3;
+
   private Usuario usuario;
 
   private Categoria categoriaSelecionada;
@@ -32,20 +34,21 @@ public class App {
     this.perguntaService = perguntaService;
     this.usuario = usuario;
     this.categoriaSelecionada = categoriaSelecionada;
-    this.dificuldadeAtual = Dificuldade.JUNIOR;
+    this.dificuldadeAtual = Dificuldade.INICIANTE;
     this.pontos = 0;
     this.respostasCorretas = 0;
     this.respostasErradas = 0;
   }
 
   public Pergunta getProximaPergunta() {
-    if (this.respostasErradas == 3) {
+    if (this.respostasErradas == MAX_RESPOSTAS_ERRADAS) {
       throw new JogoException("Você perdeu");
     }
 
     if (this.respostasCorretas > 0 && this.respostasCorretas % PERGUNTAS_POR_DIFICULDADE == 0) {
       this.dificuldadeAtual = Dificuldade.values()[this.dificuldadeAtual.ordinal() + 1];
     }
+
     this.perguntaAtual = this.perguntaService.proximaPergunta(this.dificuldadeAtual);
     return this.perguntaAtual;
   }

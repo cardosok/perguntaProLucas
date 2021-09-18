@@ -1,13 +1,14 @@
 package br.utfpr.ppgi.perguntaprolucas.domain;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 public class PerguntaServiceMockImpl implements PerguntaService {
 
-  private final Map<Dificuldade, List<Pergunta>> perguntas = new HashMap<>();
+  private final Map<Dificuldade, List<Pergunta>> perguntas = new EnumMap<>(Dificuldade.class);
 
   public PerguntaServiceMockImpl() {
 
@@ -37,6 +38,6 @@ public class PerguntaServiceMockImpl implements PerguntaService {
 
   @Override
   public Pergunta proximaPergunta(Dificuldade dificuldade) {
-    return this.perguntas.get(dificuldade).get((int) (Math.random() * 100));
+    return this.perguntas.get(dificuldade).get(new Random().nextInt(100));
   }
 }

@@ -5,6 +5,7 @@ import lombok.Getter;
 
 @AllArgsConstructor
 public enum Dificuldade {
+  INICIANTE(50),
   JUNIOR(100),
   PLENO(200),
   SENIOR(300);
