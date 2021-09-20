@@ -5,10 +5,11 @@ import br.utfpr.ppgi.perguntaprolucas.domain.Categoria;
 import br.utfpr.ppgi.perguntaprolucas.domain.JogoException;
 import br.utfpr.ppgi.perguntaprolucas.domain.PerguntaServiceMockImpl;
 import br.utfpr.ppgi.perguntaprolucas.domain.Usuario;
+import lombok.val;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import lombok.val;
 
 @SuppressWarnings("java:S106")
 public class Main {
