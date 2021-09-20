@@ -14,14 +14,11 @@ import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import lombok.Singular;
 import lombok.val;
 
 @Data
-@Builder
 @Entity
-@NoArgsConstructor
 public class Pergunta {
 
   @Id private Integer id;
@@ -56,6 +53,10 @@ public class Pergunta {
     this.dificuldade = dificuldade;
     this.categoria = categoria;
     this.opcoes = opcoes;
+  }
+
+  protected Pergunta() {
+    // required by JPA
   }
 
   @Override
