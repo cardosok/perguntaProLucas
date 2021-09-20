@@ -60,6 +60,7 @@ public class Main {
       }
     }
 
+    // TODO mostrar o resumo do cara
     System.out.println("Você venceu!");
   }
 
@@ -91,7 +92,7 @@ public class Main {
           return numeroResposta;
         }
       } catch (IOException ex) {
-        System.out.printf("Erro ao ler a resposta selecionada: " + ex.getMessage());
+        System.out.println("Erro ao ler a resposta selecionada: " + ex.getMessage());
       }
     }
   }

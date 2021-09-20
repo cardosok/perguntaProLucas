@@ -1,25 +1,48 @@
 package br.utfpr.ppgi.perguntaprolucas.domain;
 
 import java.util.List;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Transient;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.Singular;
 import lombok.val;
 
 @Data
+@Builder
+@Entity
+@NoArgsConstructor
 public class Pergunta {
 
+  @Id private Integer id;
+
+  @Enumerated(EnumType.STRING)
   private TipoPergunta tipoPergunta;
 
+  @Column(length = 4000)
   private String texto;
 
+  @Enumerated(EnumType.STRING)
   private Dificuldade dificuldade;
 
+  @OneToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "categoria_id")
   private Categoria categoria;
 
+  @OneToMany(cascade = CascadeType.ALL, mappedBy = "pergunta", orphanRemoval = true)
   private List<Opcao> opcoes;
 
-  private Opcao opcaoSelecionada;
+  @Transient private Opcao opcaoSelecionada;
 
   @Builder
   public Pergunta(
