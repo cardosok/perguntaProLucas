@@ -39,7 +39,7 @@ public class Main {
             + " da categoria: "
             + app.getCategoriaSelecionada().getNome());
 
-    while (app.getRespostasCorretas() < App.NUMERO_PERGUNTAS_VENCER) {
+    while (!app.isFimDoJogo() && app.getRespostasCorretas() < App.NUMERO_PERGUNTAS_VENCER) {
       try {
         var perguntaAtual = app.getPerguntaAtual();
         cabecalho(app);

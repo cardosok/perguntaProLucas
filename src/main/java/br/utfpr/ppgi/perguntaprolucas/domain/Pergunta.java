@@ -7,8 +7,9 @@ import lombok.Singular;
 import lombok.val;
 
 @Data
-@Builder
 public class Pergunta {
+
+  private TipoPergunta tipoPergunta;
 
   private String texto;
 
@@ -16,8 +17,23 @@ public class Pergunta {
 
   private Categoria categoria;
 
-  @Singular("opcao")
   private List<Opcao> opcoes;
+
+  private Opcao opcaoSelecionada;
+
+  @Builder
+  public Pergunta(
+      TipoPergunta tipoPergunta,
+      String texto,
+      Dificuldade dificuldade,
+      Categoria categoria,
+      @Singular("opcao") List<Opcao> opcoes) {
+    this.tipoPergunta = tipoPergunta == null ? TipoPergunta.QUESTAO : tipoPergunta;
+    this.texto = texto;
+    this.dificuldade = dificuldade;
+    this.categoria = categoria;
+    this.opcoes = opcoes;
+  }
 
   @Override
   public String toString() {
@@ -30,5 +46,7 @@ public class Pergunta {
     return output.toString();
   }
 
-
+  public void responder(Opcao opcaoSelecionada) {
+    this.opcaoSelecionada = opcaoSelecionada;
+  }
 }
