@@ -41,7 +41,7 @@ public class Main {
 
     while (app.getRespostasCorretas() < App.NUMERO_PERGUNTAS_VENCER) {
       try {
-        var perguntaAtual = app.getProximaPergunta();
+        var perguntaAtual = app.getPerguntaAtual();
         cabecalho(app);
         System.out.println(perguntaAtual);
         System.out.println();
@@ -50,13 +50,9 @@ public class Main {
         val opcaoSelecionada = perguntaAtual.getOpcoes().get(numeroResposta);
 
         if (app.isRespostaCorreta(opcaoSelecionada)) {
-          System.out.println("\n************************************************************");
-          System.out.println("\nCERTO!!!");
-          System.out.println("\n************************************************************");
+          System.out.println("\n ---> Certa a resposta!!!");
         } else {
-          System.out.println("\n************************************************************");
-          System.out.println("\nFraco hein!?");
-          System.out.println("\n************************************************************");
+          System.out.println("\n ---> Fraco hein!?");
         }
       } catch (JogoException e) {
         System.out.println("\nSeu nível é: " + app.getDificuldadeAtual());

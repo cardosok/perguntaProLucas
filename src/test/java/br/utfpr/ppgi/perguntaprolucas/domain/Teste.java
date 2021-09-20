@@ -3,6 +3,7 @@ package br.utfpr.ppgi.perguntaprolucas.domain;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import lombok.val;
@@ -33,7 +34,7 @@ class Teste {
     assertEquals(0, this.app.getPontos());
 
     for (int i = 0; i < 15; i++) {
-      val pergunta = this.app.getProximaPergunta();
+      val pergunta = this.app.getPerguntaAtual();
       System.out.println(pergunta);
       assertTrue(this.app.isRespostaCorreta(pergunta.getOpcoes().get(0)));
     }
@@ -49,24 +50,25 @@ class Teste {
 
     // responde 7 corretas
     for (int i = 0; i < 7; i++) {
-      val pergunta = this.app.getProximaPergunta();
+      val pergunta = this.app.getPerguntaAtual();
       System.out.println(pergunta);
       assertTrue(this.app.isRespostaCorreta(pergunta.getOpcoes().get(0)));
       assertEquals(i + 1, this.app.getRespostasCorretas());
     }
 
     // responde 3 erradas
-    for (int i = 0; i < 3; i++) {
-      val pergunta = this.app.getProximaPergunta();
+    for (int i = 0; i < 2; i++) {
+      val pergunta = this.app.getPerguntaAtual();
       System.out.println(pergunta);
       assertFalse(this.app.isRespostaCorreta(pergunta.getOpcoes().get(2)));
       assertEquals(i + 1, this.app.getRespostasErradas());
     }
 
-    try {
-      this.app.getProximaPergunta();
-    } catch (JogoException ex) {
-      assertEquals("Você perdeu", ex.getMessage());
-    }
+    val jogoException =
+        assertThrows(
+            JogoException.class,
+            () -> this.app.isRespostaCorreta(this.app.getPerguntaAtual().getOpcoes().get(2)));
+
+    assertEquals("Você perdeu", jogoException.getMessage());
   }
 }

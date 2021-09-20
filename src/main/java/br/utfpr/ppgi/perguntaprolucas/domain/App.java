@@ -21,6 +21,8 @@ public class App {
 
   private Integer respostasCorretas;
 
+  private Integer respostasCorretasDificuldade;
+
   private Integer respostasErradas;
 
   private Pergunta perguntaAtual;
@@ -37,7 +39,9 @@ public class App {
     this.dificuldadeAtual = Dificuldade.INICIANTE;
     this.pontos = 0;
     this.respostasCorretas = 0;
+    this.respostasCorretasDificuldade = 0;
     this.respostasErradas = 0;
+    this.perguntaAtual = getProximaPergunta();
   }
 
   public Pergunta getProximaPergunta() {
@@ -45,7 +49,8 @@ public class App {
       throw new JogoException("Você perdeu");
     }
 
-    if (this.respostasCorretas > 0 && this.respostasCorretas % PERGUNTAS_POR_DIFICULDADE == 0) {
+    if (this.respostasCorretasDificuldade >= PERGUNTAS_POR_DIFICULDADE) {
+      this.respostasCorretasDificuldade = 0;
       this.dificuldadeAtual = Dificuldade.values()[this.dificuldadeAtual.ordinal() + 1];
     }
 
@@ -57,10 +62,12 @@ public class App {
     val correto = opcaoSelecionada.isCorreto();
     if (correto) {
       this.respostasCorretas++;
+      this.respostasCorretasDificuldade++;
       this.pontos += this.perguntaAtual.getDificuldade().getPontos();
     } else {
       this.respostasErradas++;
     }
+    this.perguntaAtual = getProximaPergunta();
     return correto;
   }
 }
