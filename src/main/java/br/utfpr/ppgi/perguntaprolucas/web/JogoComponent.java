@@ -20,7 +20,7 @@ public class JogoComponent {
 
   private App app;
 
-  public void criarJogo(String nome) {
+  public JogoResponseDto criarJogo(String nome) {
     log.info("Criando o novo jogo para {}", nome);
     this.app =
         App.builder()
@@ -28,36 +28,18 @@ public class JogoComponent {
             .perguntaService(new PerguntaServiceMockImpl())
             .usuario(new Usuario(nome))
             .build();
+    return JogoResponseDto.from(app);
   }
 
-  public String getSituacaoAtual() {
-    return "Status: "
-        + "\tUsuário atual........: "
-        + this.app.getUsuario().getNome()
-        + "\tPontos: .............: "
-        + this.app.getPontos()
-        + "\tRespostas corretas...: "
-        + this.app.getRespostasCorretas()
-        + "\tRespostas erradas....: "
-        + this.app.getRespostasErradas()
-        + "\tNível................: "
-        + this.app.getDificuldadeAtual()
-        + "\n";
+  public JogoResponseDto getSituacaoAtual() {
+    return JogoResponseDto.from(app);
   }
 
-  public String getPerguntaAtual() {
-    return this.app.getPerguntaAtual().toString();
-  }
-
-  public String responder(String letra) {
+  public JogoResponseDto responder(String letra) {
     val letraResposta = letra.charAt(0);
     int numeroResposta = letraResposta - LETTER_A_ASCII_CODE;
     val opcao = this.app.getPerguntaAtual().getOpcoes().get(numeroResposta);
-    val correta = this.app.isRespostaCorreta(opcao);
-    if (correta) {
-      return "Certa a resposta " + getSituacaoAtual();
-    } else {
-      return "Fraco hein!" + getSituacaoAtual();
-    }
+    this.app.isRespostaCorreta(opcao);
+    return JogoResponseDto.from(this.app);
   }
 }

@@ -33,6 +33,8 @@ public class App {
 
   private boolean fimDoJogo = false;
 
+  private Boolean respostaAnteriorCorreta;
+
   @Builder
   public App(PerguntaService perguntaService, Usuario usuario, Categoria categoriaSelecionada) {
     this.perguntaService = perguntaService;
@@ -44,6 +46,7 @@ public class App {
     this.respostasCorretasDificuldade = 0;
     this.respostasErradas = 0;
     this.perguntaAtual = proximaPergunta();
+    this.respostaAnteriorCorreta = null;
   }
 
   public Pergunta proximaPergunta() {
@@ -72,9 +75,9 @@ public class App {
   public boolean isRespostaCorreta(Opcao opcaoSelecionada) {
     this.perguntaAtual.responder(opcaoSelecionada);
     if (this.perguntaAtual.getTipoPergunta() == TipoPergunta.QUESTAO) {
-      val correto = this.perguntaAtual.getOpcaoSelecionada().isCorreto();
+      this.respostaAnteriorCorreta = this.perguntaAtual.getOpcaoSelecionada().isCorreto();
 
-      if (correto) {
+      if (this.respostaAnteriorCorreta) {
         this.respostasCorretas++;
         this.respostasCorretasDificuldade++;
         this.pontos += this.perguntaAtual.getDificuldade().getPontos();
@@ -82,8 +85,9 @@ public class App {
         this.respostasErradas++;
       }
       this.perguntaAtual = proximaPergunta();
-      return correto;
+      return this.respostaAnteriorCorreta;
     } else if (this.perguntaAtual.getTipoPergunta() == TipoPergunta.CONTINUAR) {
+      this.respostaAnteriorCorreta = null;
       if (this.perguntaAtual.getOpcaoSelecionada().getTexto().contains("Sim")) {
         this.dificuldadeAtual = Dificuldade.values()[this.dificuldadeAtual.ordinal() + 1];
         this.perguntaAtual = proximaPergunta();
