@@ -1,9 +1,6 @@
 package br.utfpr.ppgi.perguntaprolucas.web;
 
-import br.utfpr.ppgi.perguntaprolucas.domain.App;
-import br.utfpr.ppgi.perguntaprolucas.domain.Categoria;
-import br.utfpr.ppgi.perguntaprolucas.domain.PerguntaServiceMockImpl;
-import br.utfpr.ppgi.perguntaprolucas.domain.Usuario;
+import br.utfpr.ppgi.perguntaprolucas.domain.*;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import org.springframework.context.annotation.Scope;
@@ -18,7 +15,13 @@ public class JogoComponent {
 
   public static final int LETTER_A_ASCII_CODE = 97;
 
+  private final RankingService rankingService;
+
   private App app;
+
+  public JogoComponent(RankingService rankingService) {
+    this.rankingService = rankingService;
+  }
 
   public JogoResponseDto criarJogo(String nome) {
     log.info("Criando o novo jogo para {}", nome);
@@ -39,7 +42,13 @@ public class JogoComponent {
     val letraResposta = letra.charAt(0);
     int numeroResposta = letraResposta - LETTER_A_ASCII_CODE;
     val opcao = this.app.getPerguntaAtual().getOpcoes().get(numeroResposta);
-    this.app.isRespostaCorreta(opcao);
+    try {
+      this.app.isRespostaCorreta(opcao);
+    } finally {
+      if (this.app.isFimDoJogo()) {
+        rankingService.salvar(this.app);
+      }
+    }
     return JogoResponseDto.from(this.app);
   }
 }

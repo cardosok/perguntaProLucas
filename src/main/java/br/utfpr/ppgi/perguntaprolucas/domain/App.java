@@ -29,11 +29,11 @@ public class App {
 
   private Dificuldade dificuldadeAtual;
 
-  private PerguntaService perguntaService;
-
   private boolean fimDoJogo = false;
 
   private Boolean respostaAnteriorCorreta;
+
+  private PerguntaService perguntaService;
 
   @Builder
   public App(PerguntaService perguntaService, Usuario usuario, Categoria categoriaSelecionada) {
@@ -51,10 +51,14 @@ public class App {
 
   public Pergunta proximaPergunta() {
     if (this.respostasErradas == MAX_RESPOSTAS_ERRADAS) {
+      this.fimDoJogo = true;
       throw new JogoException("Você perdeu");
     }
 
     if (this.respostasCorretasDificuldade >= PERGUNTAS_POR_DIFICULDADE) {
+      if (this.dificuldadeAtual == Dificuldade.SENIOR) {
+        this.fimDoJogo = true;
+      }
       this.respostasCorretasDificuldade = 0;
       this.perguntaAtual =
           Pergunta.builder()
