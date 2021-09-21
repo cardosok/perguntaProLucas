@@ -3,7 +3,7 @@ package br.utfpr.ppgi.perguntaprolucas;
 import br.utfpr.ppgi.perguntaprolucas.domain.App;
 import br.utfpr.ppgi.perguntaprolucas.domain.Categoria;
 import br.utfpr.ppgi.perguntaprolucas.domain.JogoException;
-import br.utfpr.ppgi.perguntaprolucas.domain.PerguntaServiceMockImpl;
+import br.utfpr.ppgi.perguntaprolucas.infra.PerguntaServiceMockImpl;
 import br.utfpr.ppgi.perguntaprolucas.domain.Usuario;
 import java.io.BufferedReader;
 import java.io.IOException;

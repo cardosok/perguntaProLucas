@@ -1,5 +1,6 @@
 package br.utfpr.ppgi.perguntaprolucas.web;
 
+import br.utfpr.ppgi.perguntaprolucas.infra.RankingServiceImpl;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -10,11 +11,11 @@ public class JogoController {
 
   private final JogoComponent jogoComponent;
 
-  private final RankingService rankingService;
+  private final RankingServiceImpl rankingServiceImpl;
 
-  public JogoController(JogoComponent jogoComponent, RankingService rankingService) {
+  public JogoController(JogoComponent jogoComponent, RankingServiceImpl rankingServiceImpl) {
     this.jogoComponent = jogoComponent;
-    this.rankingService = rankingService;
+    this.rankingServiceImpl = rankingServiceImpl;
   }
 
   @PostMapping("novo-jogo")
@@ -34,6 +35,6 @@ public class JogoController {
 
   @GetMapping("ranking")
   public List<RankingResponseDto> getRanking() {
-    return this.rankingService.getRanking();
+    return this.rankingServiceImpl.getRanking();
   }
 }

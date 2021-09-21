@@ -1,6 +1,8 @@
 package br.utfpr.ppgi.perguntaprolucas.web;
 
 import br.utfpr.ppgi.perguntaprolucas.domain.*;
+import br.utfpr.ppgi.perguntaprolucas.infra.PerguntaServiceMockImpl;
+import br.utfpr.ppgi.perguntaprolucas.infra.RankingServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import org.springframework.context.annotation.Scope;
@@ -15,12 +17,12 @@ public class JogoComponent {
 
   public static final int LETTER_A_ASCII_CODE = 97;
 
-  private final RankingService rankingService;
+  private final RankingServiceImpl rankingServiceImpl;
 
   private App app;
 
-  public JogoComponent(RankingService rankingService) {
-    this.rankingService = rankingService;
+  public JogoComponent(RankingServiceImpl rankingServiceImpl) {
+    this.rankingServiceImpl = rankingServiceImpl;
   }
 
   public JogoResponseDto criarJogo(String nome) {
@@ -46,7 +48,7 @@ public class JogoComponent {
       this.app.isRespostaCorreta(opcao);
     } finally {
       if (this.app.isFimDoJogo()) {
-        rankingService.salvar(this.app);
+        rankingServiceImpl.salvar(this.app);
       }
     }
     return JogoResponseDto.from(this.app);

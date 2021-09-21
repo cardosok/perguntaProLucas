@@ -1,4 +1,4 @@
-package br.utfpr.ppgi.perguntaprolucas.infra;
+package br.utfpr.ppgi.perguntaprolucas.domain;
 
 import br.utfpr.ppgi.perguntaprolucas.domain.Ranking;
 import org.springframework.data.repository.CrudRepository;

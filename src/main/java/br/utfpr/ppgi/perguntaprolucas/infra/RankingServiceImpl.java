@@ -1,9 +1,10 @@
-package br.utfpr.ppgi.perguntaprolucas.web;
+package br.utfpr.ppgi.perguntaprolucas.infra;
 
 import br.utfpr.ppgi.perguntaprolucas.domain.App;
-import br.utfpr.ppgi.perguntaprolucas.domain.Dificuldade;
 import br.utfpr.ppgi.perguntaprolucas.domain.Ranking;
-import br.utfpr.ppgi.perguntaprolucas.infra.RankingRepository;
+import br.utfpr.ppgi.perguntaprolucas.domain.RankingRepository;
+import br.utfpr.ppgi.perguntaprolucas.domain.RankingService;
+import br.utfpr.ppgi.perguntaprolucas.web.RankingResponseDto;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +13,7 @@ import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
-public class RankingService {
+public class RankingServiceImpl implements RankingService {
 
     private final RankingRepository repository;
 

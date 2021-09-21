@@ -1,4 +1,6 @@
-package br.utfpr.ppgi.perguntaprolucas.domain;
+package br.utfpr.ppgi.perguntaprolucas.infra;
+
+import br.utfpr.ppgi.perguntaprolucas.domain.*;
 
 import java.util.ArrayList;
 import java.util.EnumMap;

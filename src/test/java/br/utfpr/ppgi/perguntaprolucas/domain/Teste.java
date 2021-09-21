@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import br.utfpr.ppgi.perguntaprolucas.infra.PerguntaServiceMockImpl;
 import lombok.val;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -53,7 +54,7 @@ class Teste {
       val pergunta = this.app.getPerguntaAtual();
       System.out.println(pergunta);
       assertTrue(this.app.isRespostaCorreta(pergunta.getOpcoes().get(0)));
-      assertEquals(i + 1, this.app.getRespostasCorretas());
+      assertEquals(i, this.app.getRespostasCorretas());
     }
 
     // responde 3 erradas
