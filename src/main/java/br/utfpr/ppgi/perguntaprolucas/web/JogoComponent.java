@@ -1,7 +1,9 @@
 package br.utfpr.ppgi.perguntaprolucas.web;
 
-import br.utfpr.ppgi.perguntaprolucas.domain.*;
-import br.utfpr.ppgi.perguntaprolucas.infra.PerguntaServiceMockImpl;
+import br.utfpr.ppgi.perguntaprolucas.domain.App;
+import br.utfpr.ppgi.perguntaprolucas.domain.Categoria;
+import br.utfpr.ppgi.perguntaprolucas.domain.PerguntaService;
+import br.utfpr.ppgi.perguntaprolucas.domain.Usuario;
 import br.utfpr.ppgi.perguntaprolucas.infra.RankingServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
@@ -19,18 +21,21 @@ public class JogoComponent {
 
   private final RankingServiceImpl rankingServiceImpl;
 
+  private final PerguntaService perguntaService;
+
   private App app;
 
-  public JogoComponent(RankingServiceImpl rankingServiceImpl) {
+  public JogoComponent(RankingServiceImpl rankingServiceImpl, PerguntaService perguntaService) {
     this.rankingServiceImpl = rankingServiceImpl;
+    this.perguntaService = perguntaService;
   }
 
   public JogoResponseDto criarJogo(String nome) {
     log.info("Criando o novo jogo para {}", nome);
     this.app =
         App.builder()
-            .categoriaSelecionada(new Categoria("Teste e Validação de Software"))
-            .perguntaService(new PerguntaServiceMockImpl())
+            .categoriaSelecionada(new Categoria(1, "Teste e Validação de Software"))
+            .perguntaService(this.perguntaService)
             .usuario(new Usuario(nome))
             .build();
     return JogoResponseDto.from(app);
@@ -38,6 +43,11 @@ public class JogoComponent {
 
   public JogoResponseDto getSituacaoAtual() {
     return JogoResponseDto.from(app);
+  }
+
+  public JogoResponseDto pularAtual() {
+    this.app.pularAtual();
+    return JogoResponseDto.from(this.app);
   }
 
   public JogoResponseDto responder(String letra) {

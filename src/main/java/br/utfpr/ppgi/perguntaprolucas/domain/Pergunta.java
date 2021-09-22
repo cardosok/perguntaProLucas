@@ -9,6 +9,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Transient;
@@ -19,6 +20,12 @@ import lombok.val;
 
 @Data
 @Entity
+@NamedQuery(
+    name = "findProximaPerguntaByCategoriaAndDificuldade",
+    query =
+        "select p from Pergunta p "
+            + "where p.categoria = :categoria "
+            + "  and p.dificuldade = :dificuldade")
 public class Pergunta {
 
   @Id private Integer id;
@@ -48,7 +55,7 @@ public class Pergunta {
       Dificuldade dificuldade,
       Categoria categoria,
       @Singular("opcao") List<Opcao> opcoes) {
-    this.tipoPergunta = tipoPergunta == null ? TipoPergunta.QUESTAO : tipoPergunta;
+    this();
     this.texto = texto;
     this.dificuldade = dificuldade;
     this.categoria = categoria;
@@ -57,6 +64,7 @@ public class Pergunta {
 
   protected Pergunta() {
     // required by JPA
+    this.tipoPergunta = tipoPergunta == null ? TipoPergunta.QUESTAO : tipoPergunta;
   }
 
   @Override

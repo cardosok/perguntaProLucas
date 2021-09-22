@@ -20,7 +20,8 @@ public class Categoria {
 
   private String descricao;
 
-  public Categoria(String nome) {
+  public Categoria(Integer id, String nome) {
+    this.id = id;
     this.nome = nome;
   }
 

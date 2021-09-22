@@ -2,7 +2,6 @@ package br.utfpr.ppgi.perguntaprolucas.web;
 
 import br.utfpr.ppgi.perguntaprolucas.domain.App;
 import br.utfpr.ppgi.perguntaprolucas.domain.Dificuldade;
-import br.utfpr.ppgi.perguntaprolucas.domain.Pergunta;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Value;
@@ -12,36 +11,38 @@ import lombok.Value;
 @AllArgsConstructor
 public class JogoResponseDto {
 
-    String nome;
+  String nome;
 
-    String categoria;
+  String categoria;
 
-    Integer pontos;
+  Integer pontos;
 
-    Integer respostasCorretas;
+  Integer respostasCorretas;
 
-    Integer respostasErradas;
+  Integer respostasErradas;
 
-    Dificuldade dificuldadeAtual;
+  Dificuldade dificuldadeAtual;
 
-    PerguntaDto perguntaAtual;
+  PerguntaDto perguntaAtual;
 
-    Boolean respostaAnteriorCorreta;
+  Boolean respostaAnteriorCorreta;
 
-    boolean fimDoJogo;
+  boolean fimDoJogo;
 
-    public static JogoResponseDto from(App app) {
-        return JogoResponseDto.builder()
-                .nome(app.getUsuario().getNome())
-                .categoria(app.getCategoriaSelecionada().getNome())
-                .pontos(app.getPontos())
-                .respostasCorretas(app.getRespostasCorretas())
-                .respostasErradas(app.getRespostasErradas())
-                .dificuldadeAtual(app.getDificuldadeAtual())
-                .fimDoJogo(app.isFimDoJogo())
-                .perguntaAtual(PerguntaDto.from(app.getPerguntaAtual()))
-                .respostaAnteriorCorreta(app.getRespostaAnteriorCorreta())
-                .build();
-    }
+  int pulos;
 
+  public static JogoResponseDto from(App app) {
+    return JogoResponseDto.builder()
+        .nome(app.getUsuario().getNome())
+        .categoria(app.getCategoriaSelecionada().getNome())
+        .pontos(app.getPontos())
+        .respostasCorretas(app.getRespostasCorretas())
+        .respostasErradas(app.getRespostasErradas())
+        .dificuldadeAtual(app.getDificuldadeAtual())
+        .fimDoJogo(app.isFimDoJogo())
+        .perguntaAtual(PerguntaDto.from(app.getPerguntaAtual()))
+        .respostaAnteriorCorreta(app.getRespostaAnteriorCorreta())
+        .pulos(app.getPulos())
+        .build();
+  }
 }

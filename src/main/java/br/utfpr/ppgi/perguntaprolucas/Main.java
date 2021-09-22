@@ -27,7 +27,7 @@ public class Main {
     val app =
         App.builder()
             .usuario(usuario)
-            .categoriaSelecionada(new Categoria("Categoria fake"))
+            .categoriaSelecionada(new Categoria(1, "Categoria fake"))
             .perguntaService(new PerguntaServiceMockImpl())
             .build();
 

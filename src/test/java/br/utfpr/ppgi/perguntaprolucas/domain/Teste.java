@@ -22,7 +22,7 @@ class Teste {
         App.builder()
             .usuario(new Usuario("Lucas"))
             .perguntaService(new PerguntaServiceMockImpl())
-            .categoriaSelecionada(new Categoria("Engenharia de Software"))
+            .categoriaSelecionada(new Categoria(1, "Engenharia de Software"))
             .build();
   }
 

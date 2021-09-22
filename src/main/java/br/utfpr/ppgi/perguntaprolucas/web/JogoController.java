@@ -1,9 +1,12 @@
 package br.utfpr.ppgi.perguntaprolucas.web;
 
 import br.utfpr.ppgi.perguntaprolucas.infra.RankingServiceImpl;
-import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api")
@@ -31,6 +34,11 @@ public class JogoController {
   @PostMapping("responder")
   public JogoResponseDto postResposta(@RequestBody String letra) {
     return this.jogoComponent.responder(letra);
+  }
+
+  @GetMapping("/pular")
+  public JogoResponseDto pular() {
+    return this.jogoComponent.pularAtual();
   }
 
   @GetMapping("ranking")

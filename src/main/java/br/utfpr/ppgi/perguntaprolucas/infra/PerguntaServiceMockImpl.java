@@ -1,12 +1,16 @@
 package br.utfpr.ppgi.perguntaprolucas.infra;
 
-import br.utfpr.ppgi.perguntaprolucas.domain.*;
-
+import br.utfpr.ppgi.perguntaprolucas.domain.Categoria;
+import br.utfpr.ppgi.perguntaprolucas.domain.Dificuldade;
+import br.utfpr.ppgi.perguntaprolucas.domain.Opcao;
+import br.utfpr.ppgi.perguntaprolucas.domain.Pergunta;
+import br.utfpr.ppgi.perguntaprolucas.domain.PerguntaService;
 import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.Set;
 
 public class PerguntaServiceMockImpl implements PerguntaService {
 
@@ -15,7 +19,7 @@ public class PerguntaServiceMockImpl implements PerguntaService {
   public PerguntaServiceMockImpl() {
 
     int dificuldadeIndex = 0;
-    Categoria categoria = new Categoria("Categoria fake");
+    Categoria categoria = new Categoria(1, "Categoria fake");
     for (int i = 0; i < Dificuldade.values().length; i++) {
       Dificuldade dificuldade = Dificuldade.values()[dificuldadeIndex++];
       if (!this.perguntas.containsKey(dificuldade)) {
@@ -39,7 +43,8 @@ public class PerguntaServiceMockImpl implements PerguntaService {
   }
 
   @Override
-  public Pergunta proximaPergunta(Dificuldade dificuldade) {
+  public Pergunta proximaPergunta(
+      Categoria categoria, Dificuldade dificuldade, Set<Integer> idRespondidas) {
     return this.perguntas.get(dificuldade).get(new Random().nextInt(100));
   }
 }
