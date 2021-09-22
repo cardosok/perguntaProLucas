@@ -128,9 +128,7 @@ public class App {
     this.idRespondidas.add(this.perguntaAtual.getId());
     this.perguntaAtual.responder(opcaoSelecionada);
 
-    // TODO tirar esse if-null
-    if (this.perguntaAtual.getTipoPergunta() == null
-        || this.perguntaAtual.getTipoPergunta() == TipoPergunta.QUESTAO) {
+    if (this.perguntaAtual.getTipoPergunta() == TipoPergunta.QUESTAO) {
       this.respostaAnteriorCorreta = this.perguntaAtual.getOpcaoSelecionada().isCorreto();
 
       if (Boolean.TRUE.equals(this.respostaAnteriorCorreta)) {
