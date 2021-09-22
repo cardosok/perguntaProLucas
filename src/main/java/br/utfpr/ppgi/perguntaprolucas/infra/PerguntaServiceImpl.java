@@ -25,7 +25,6 @@ public class PerguntaServiceImpl implements PerguntaService {
     val perguntas =
         this.perguntaRepository.findAllByCategoriaAndDificuldadeAndIdNotIn(
             categoria, dificuldade, idRespondidas);
-    assert perguntas.size() > 0 : "Não foram encontradas pergutnas";
     return perguntas.get(new Random().nextInt(perguntas.size()));
   }
 }

@@ -55,7 +55,7 @@ public class Pergunta {
       Dificuldade dificuldade,
       Categoria categoria,
       @Singular("opcao") List<Opcao> opcoes) {
-    this();
+    this.tipoPergunta = tipoPergunta;
     this.texto = texto;
     this.dificuldade = dificuldade;
     this.categoria = categoria;
@@ -64,7 +64,6 @@ public class Pergunta {
 
   protected Pergunta() {
     // required by JPA
-    this.tipoPergunta = tipoPergunta == null ? TipoPergunta.QUESTAO : tipoPergunta;
   }
 
   @Override
