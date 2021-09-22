@@ -31,6 +31,7 @@ public class Pergunta {
   @Id private Integer id;
 
   @Enumerated(EnumType.STRING)
+  @Column(columnDefinition = "varchar(50) default 'QUESTAO'")
   private TipoPergunta tipoPergunta;
 
   @Column(length = 4000)
