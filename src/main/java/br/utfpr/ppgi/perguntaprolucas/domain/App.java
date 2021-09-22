@@ -125,10 +125,10 @@ public class App {
 
   // TODO refatorar esse método
   public boolean isRespostaCorreta(Opcao opcaoSelecionada) {
-    this.idRespondidas.add(this.perguntaAtual.getId());
     this.perguntaAtual.responder(opcaoSelecionada);
 
     if (this.perguntaAtual.getTipoPergunta() == TipoPergunta.QUESTAO) {
+      this.idRespondidas.add(this.perguntaAtual.getId());
       this.respostaAnteriorCorreta = this.perguntaAtual.getOpcaoSelecionada().isCorreto();
 
       if (Boolean.TRUE.equals(this.respostaAnteriorCorreta)) {
