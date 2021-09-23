@@ -3,42 +3,38 @@ package br.utfpr.ppgi.perguntaprolucas.web;
 import br.utfpr.ppgi.perguntaprolucas.infra.RankingServiceImpl;
 import java.util.List;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("api")
 public class JogoController {
 
-  private final JogoComponent jogoComponent;
+  private final JogoService jogoService;
 
   private final RankingServiceImpl rankingServiceImpl;
 
-  public JogoController(JogoComponent jogoComponent, RankingServiceImpl rankingServiceImpl) {
-    this.jogoComponent = jogoComponent;
+  public JogoController(JogoService jogoService, RankingServiceImpl rankingServiceImpl) {
+    this.jogoService = jogoService;
     this.rankingServiceImpl = rankingServiceImpl;
   }
 
   @PostMapping("novo-jogo")
   public JogoResponseDto criarJogo(@RequestBody String nome) {
-    return this.jogoComponent.criarJogo(nome);
+    return this.jogoService.criarJogo(nome);
   }
 
-  @GetMapping("situacao-atual")
-  public JogoResponseDto getSituacaoAtual() {
-    return this.jogoComponent.getSituacaoAtual();
+  @PostMapping("{uuid}/responder")
+  public JogoResponseDto postResposta(@PathVariable String uuid, @RequestBody int numero) {
+    return this.jogoService.responder(uuid, numero);
   }
 
-  @PostMapping("responder")
-  public JogoResponseDto postResposta(@RequestBody int numero) {
-    return this.jogoComponent.responder(numero);
-  }
-
-  @GetMapping("/pular")
-  public JogoResponseDto pular() {
-    return this.jogoComponent.pularAtual();
+  @GetMapping("{uuid}/pular")
+  public JogoResponseDto pular(@PathVariable String uuid) {
+    return this.jogoService.pularAtual(uuid);
   }
 
   @GetMapping("ranking")

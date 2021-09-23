@@ -45,6 +45,8 @@ public class App {
 
   private Set<Integer> idRespondidas;
 
+  private String uuid;
+
   @Builder
   public App(PerguntaService perguntaService, Usuario usuario, Categoria categoriaSelecionada) {
     this.perguntaService = perguntaService;

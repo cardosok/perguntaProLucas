@@ -31,6 +31,8 @@ public class JogoResponseDto {
 
   int pulos;
 
+  String uuid;
+
   public static JogoResponseDto from(App app) {
     return JogoResponseDto.builder()
         .nome(app.getUsuario().getNome())
@@ -43,6 +45,7 @@ public class JogoResponseDto {
         .perguntaAtual(PerguntaDto.from(app.getPerguntaAtual()))
         .respostaAnteriorCorreta(app.getRespostaAnteriorCorreta())
         .pulos(app.getPulos())
+        .uuid(app.getUuid())
         .build();
   }
 }
