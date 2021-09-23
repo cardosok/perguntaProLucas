@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("api")
 public class JogoController {
 
+  public static final String UUID_PATH = "{uuid}";
+
   private final JogoService jogoService;
 
   private final RankingServiceImpl rankingServiceImpl;
@@ -27,12 +29,12 @@ public class JogoController {
     return this.jogoService.criarJogo(nome);
   }
 
-  @PostMapping("{uuid}/responder")
+  @PostMapping(UUID_PATH + "/responder")
   public JogoResponseDto postResposta(@PathVariable String uuid, @RequestBody int numero) {
     return this.jogoService.responder(uuid, numero);
   }
 
-  @GetMapping("{uuid}/pular")
+  @GetMapping(UUID_PATH + "/pular")
   public JogoResponseDto pular(@PathVariable String uuid) {
     return this.jogoService.pularAtual(uuid);
   }
