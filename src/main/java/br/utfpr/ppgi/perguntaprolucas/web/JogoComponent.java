@@ -17,8 +17,6 @@ import org.springframework.web.context.WebApplicationContext;
 @Scope(value = WebApplicationContext.SCOPE_SESSION, proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class JogoComponent {
 
-  public static final int LETTER_A_ASCII_CODE = 97;
-
   private final RankingServiceImpl rankingServiceImpl;
 
   private final PerguntaService perguntaService;
@@ -50,10 +48,8 @@ public class JogoComponent {
     return JogoResponseDto.from(this.app);
   }
 
-  public JogoResponseDto responder(String letra) {
-    val letraResposta = letra.charAt(0);
-    int numeroResposta = letraResposta - LETTER_A_ASCII_CODE;
-    val opcao = this.app.getPerguntaAtual().getOpcoes().get(numeroResposta);
+  public JogoResponseDto responder(int numero) {
+    val opcao = this.app.getPerguntaAtual().getOpcoes().get(numero);
     try {
       this.app.isRespostaCorreta(opcao);
     } finally {

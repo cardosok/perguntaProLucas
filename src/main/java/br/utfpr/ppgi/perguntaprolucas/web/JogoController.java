@@ -32,8 +32,8 @@ public class JogoController {
   }
 
   @PostMapping("responder")
-  public JogoResponseDto postResposta(@RequestBody String letra) {
-    return this.jogoComponent.responder(letra);
+  public JogoResponseDto postResposta(@RequestBody int numero) {
+    return this.jogoComponent.responder(numero);
   }
 
   @GetMapping("/pular")
