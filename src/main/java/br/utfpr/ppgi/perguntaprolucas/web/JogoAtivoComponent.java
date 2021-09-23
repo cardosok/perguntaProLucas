@@ -22,6 +22,11 @@ public class JogoAtivoComponent {
   }
 
   public App getJogo(String uuid) {
-    return this.jogosAtivos.get(uuid);
+    var app = this.jogosAtivos.get(uuid);
+    if (app != null && app.isExpirado()) {
+      this.jogosAtivos.remove(uuid);
+      app = null;
+    }
+    return app;
   }
 }

@@ -1,5 +1,7 @@
 package br.utfpr.ppgi.perguntaprolucas.domain;
 
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
@@ -18,6 +20,10 @@ public class App {
   public static final String SIM = "Sim";
 
   public static final String NAO = "Não";
+
+  public static final long DURACAO_MAXIMA_JOGO = 5L;
+
+  private LocalDateTime dataHoraCriacao;
 
   private Usuario usuario;
 
@@ -153,5 +159,10 @@ public class App {
       return true;
     }
     throw new IllegalArgumentException("Tipo de pergunta desconhecido...");
+  }
+
+  public boolean isExpirado() {
+    return ChronoUnit.MINUTES.between(LocalDateTime.now(), this.dataHoraCriacao)
+        > DURACAO_MAXIMA_JOGO;
   }
 }
