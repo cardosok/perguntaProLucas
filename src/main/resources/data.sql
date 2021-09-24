@@ -5,7 +5,7 @@ INSERT INTO categoria (id, nome, descricao)
 VALUES (2, 'Padrões de Projeto', 'Padrões de Projeto');
 
 INSERT INTO categoria (id, nome, descricao)
-VALUES (2, 'Metodologias Ágeis', 'Metodologias Ágeis');
+VALUES (3, 'Metodologias Ágeis', 'Metodologias Ágeis');
 
 -- DIFICULDADE: INICIANTE
 INSERT INTO pergunta (id, texto, dificuldade, categoria_id)
