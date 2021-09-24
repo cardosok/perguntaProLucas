@@ -1,6 +1,12 @@
 INSERT INTO categoria (id, nome, descricao)
 VALUES (1, 'Teste e Validação de Software', 'Teste e Validação de Software');
 
+INSERT INTO categoria (id, nome, descricao)
+VALUES (2, 'Padrões de Projeto', 'Padrões de Projeto');
+
+INSERT INTO categoria (id, nome, descricao)
+VALUES (2, 'Metodologias Ágeis', 'Metodologias Ágeis');
+
 -- DIFICULDADE: INICIANTE
 INSERT INTO pergunta (id, texto, dificuldade, categoria_id)
 VALUES (1,

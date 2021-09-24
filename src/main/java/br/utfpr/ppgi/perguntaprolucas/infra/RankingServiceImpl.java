@@ -2,7 +2,6 @@ package br.utfpr.ppgi.perguntaprolucas.infra;
 
 import br.utfpr.ppgi.perguntaprolucas.domain.App;
 import br.utfpr.ppgi.perguntaprolucas.domain.Ranking;
-import br.utfpr.ppgi.perguntaprolucas.domain.RankingRepository;
 import br.utfpr.ppgi.perguntaprolucas.domain.RankingService;
 import br.utfpr.ppgi.perguntaprolucas.web.RankingResponseDto;
 import lombok.AllArgsConstructor;

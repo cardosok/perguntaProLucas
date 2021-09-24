@@ -66,6 +66,7 @@ public class App {
     this.idRespondidas = new HashSet<>(Collections.singletonList(0));
     this.respostaAnteriorCorreta = null;
     this.perguntaAtual = proximaPergunta();
+    this.dataHoraCriacao = LocalDateTime.now();
   }
 
   public void pularAtual() {

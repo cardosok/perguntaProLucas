@@ -2,9 +2,11 @@ package br.utfpr.ppgi.perguntaprolucas.web;
 
 import br.utfpr.ppgi.perguntaprolucas.domain.App;
 import br.utfpr.ppgi.perguntaprolucas.domain.Categoria;
+import br.utfpr.ppgi.perguntaprolucas.domain.CategorigaService;
 import br.utfpr.ppgi.perguntaprolucas.domain.PerguntaService;
 import br.utfpr.ppgi.perguntaprolucas.domain.Usuario;
 import br.utfpr.ppgi.perguntaprolucas.infra.RankingServiceImpl;
+import java.util.List;
 import java.util.UUID;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
@@ -12,7 +14,7 @@ import org.springframework.stereotype.Service;
 
 @Slf4j
 @Service
-public class JogoService {
+public class JogoFacade {
 
   private final JogoAtivoComponent jogoAtivoComponent;
 
@@ -20,22 +22,27 @@ public class JogoService {
 
   private final PerguntaService perguntaService;
 
-  public JogoService(
+  private final CategorigaService categorigaService;
+
+  public JogoFacade(
       JogoAtivoComponent jogoAtivoComponent,
       RankingServiceImpl rankingServiceImpl,
-      PerguntaService perguntaService) {
+      PerguntaService perguntaService,
+      CategorigaService categorigaService) {
     this.jogoAtivoComponent = jogoAtivoComponent;
     this.rankingServiceImpl = rankingServiceImpl;
     this.perguntaService = perguntaService;
+    this.categorigaService = categorigaService;
   }
 
-  public JogoResponseDto criarJogo(String nome) {
-    log.info("Criando o novo jogo para {}", nome);
+  public JogoResponseDto criarJogo(NovoJogoRequest novoJogoRequest) {
+    log.info("Criando o novo jogo para {}", novoJogoRequest.getNome());
     val app =
         App.builder()
-            .categoriaSelecionada(new Categoria(1, "Teste e Validação de Software"))
+            .categoriaSelecionada(
+                this.categorigaService.getCategoria(novoJogoRequest.getCategoriaId()))
             .perguntaService(this.perguntaService)
-            .usuario(new Usuario(nome))
+            .usuario(new Usuario(novoJogoRequest.getNome()))
             .build();
     this.jogoAtivoComponent.putJogo(UUID.randomUUID().toString(), app);
     return JogoResponseDto.from(app);
@@ -58,5 +65,9 @@ public class JogoService {
       }
     }
     return JogoResponseDto.from(app);
+  }
+
+  public List<Categoria> getCategorias() {
+    return this.categorigaService.getCategorias();
   }
 }
