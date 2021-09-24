@@ -189,3 +189,11 @@ VALUES ('Os requisitos do software', false, 16),
        ('A estrutura do software', false, 16),
        ('Diferentes tipos ou domínios de entradas e saídas de dados', true, 16),
        ('O armazenamento do software e seus dados', false, 16);
+
+INSERT INTO RANKING (id, usuario, pontos, dificuldade)
+VALUES (1, 'Lucas Maricas', 24, 'JUNIOR');
+INSERT INTO RANKING (id, usuario, pontos, dificuldade)
+VALUES (2, 'Lucas Cannho', 69, 'PLENO');
+INSERT INTO RANKING (id, usuario, pontos, dificuldade)
+VALUES (3, 'Lucas Short Pipe', 0, 'INICIANTE');
+
