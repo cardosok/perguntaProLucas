@@ -49,6 +49,4 @@ public class JogoController {
   public List<Categoria> getCategorias() {
     return this.jogoFacade.getCategorias();
   }
-
-
 }

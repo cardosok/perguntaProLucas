@@ -190,6 +190,28 @@ VALUES ('Os requisitos do software', false, 16),
        ('Diferentes tipos ou domínios de entradas e saídas de dados', true, 16),
        ('O armazenamento do software e seus dados', false, 16);
 
+INSERT INTO pergunta (id, texto, dificuldade, categoria_id)
+VALUES (17,
+        'Faltou pergunta. 1 + 1 = ?',
+        'INICIANTE', 1);
+
+INSERT INTO opcao (texto, correto, pergunta_id)
+VALUES ('dois', true, 17),
+       ('1 e meio', false, 17),
+       ('WTF?', false, 17),
+       ('Todas estão corretas', false, 17);
+
+INSERT INTO pergunta (id, texto, dificuldade, categoria_id)
+VALUES (18,
+        'Faltou pergunta. 2 + 2 = ?',
+        'INICIANTE', 1);
+
+INSERT INTO opcao (texto, correto, pergunta_id)
+VALUES ('quatro', true, 18),
+       ('1 e meio', false, 18),
+       ('WTF?', false, 18),
+       ('Todas estão corretas', false, 18);
+
 INSERT INTO RANKING (id, usuario, pontos, dificuldade)
 VALUES (1, 'Lucas Maricas', 24, 'JUNIOR');
 INSERT INTO RANKING (id, usuario, pontos, dificuldade)

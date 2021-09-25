@@ -103,8 +103,9 @@ public class App {
     return this.perguntaAtual;
   }
 
-  private Pergunta perguntaDeFimDeJogo() {
+  public Pergunta perguntaDeFimDeJogo() {
     return Pergunta.builder()
+        .tipoPergunta(TipoPergunta.ENCERRAR)
         .categoria(this.categoriaSelecionada)
         .dificuldade(this.dificuldadeAtual)
         .texto("Você venceu!!!")
